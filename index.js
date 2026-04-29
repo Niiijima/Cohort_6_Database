@@ -16,6 +16,6 @@ app.get('/', (req, res) => {
     res.send("api is ready for use");
 });
 
-app.listen(prototype, () => {
+app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });
