@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables from .env
 const dns = require('node:dns');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
@@ -19,7 +20,8 @@ const router = require('./routes/userRoutes'); // connect your routes
 // Never expose your real MongoDB username and password publicly.
 // Use environment variables later with dotenv.
 
-const uri = "mongodb+srv://qagwu11_db_user:Amateratsu@cluster0.qtuzgtq.mongodb.net/AuthenticationDB?retryWrites=true&w=majority";
+// We now pull the uri from the .env file for security
+const uri = process.env.MONGO_URI;
 
 const local_url = "mongodb://localhost:27017/AuthenticationDB"; // mongodb local url
 
@@ -29,7 +31,10 @@ mongoose
     // followed by the name of what you are trying to create (ie your database name) 
     // and in this case we are making a simple authentication page that is why we named it AuthenticationDB
     
-    .connect(uri) // connect to MongoDB Atlas
+    .connect(uri, {
+        tlsAllowInvalidCertificates: true, // Bypass strict ISP network firewalls
+        family: 4 // Force IPv4 for stable mobile hotspot connection
+    }) // connect to MongoDB Atlas
     .then(() => console.log("🔥 Amateratsu! MongoDB Connected Successfully")) // handles success message
     .catch(err => console.error("❌ Connection Error: ", err.message)); // catch section for error messages
 
