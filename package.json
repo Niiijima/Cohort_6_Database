@@ -15,7 +15,6 @@
     "express": "^5.2.1",
     "mongoose": "^9.6.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Niiijima/Cohort_6_Database.git"
